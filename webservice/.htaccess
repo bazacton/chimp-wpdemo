@@ -1,0 +1,15 @@
+SetEnvIf Referer chimpgroup.com localreferer
+<Files test1.xml>
+order deny,allow
+deny from all
+allow from env=localreferer
+</Files>
+
+<IfModule mod_rewrite.c>
+RewriteEngine On
+RewriteBase /
+RewriteRule ^index.php$ - [L]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule . index.php [L]
+</IfModule>
